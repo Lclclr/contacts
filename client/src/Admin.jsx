@@ -1,3 +1,4 @@
+import { API_BASE } from './config.js';
 import { useEffect, useState, useRef } from 'react';
 import './Admin.css';
 
@@ -33,7 +34,7 @@ export default function Admin() {
 
   const fetchContacts = async () => {
     try {
-      const res = await fetch('/api/contacts');
+      const res = await fetch(`${API_BASE}/contacts`);
       const data = await res.json();
       setContacts(data);
     } catch (err) {
@@ -52,7 +53,7 @@ export default function Admin() {
     e.preventDefault();
     setIsProcessing(true);
     try {
-      const res = await fetch('/api/contacts', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) });
+      const res = await fetch(`${API_BASE}/contacts`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) });
       if (!res.ok) throw new Error('Create failed');
       setNotif('Contact created');
       clearNotif();
@@ -70,7 +71,7 @@ export default function Admin() {
     e.preventDefault();
     setIsProcessing(true);
     try {
-      const res = await fetch(`/api/contacts/${editingId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) });
+      const res = await fetch(`${API_BASE}/contacts/${editingId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) });
       if (!res.ok) throw new Error('Update failed');
       setNotif('Contact updated');
       clearNotif();
@@ -89,7 +90,7 @@ export default function Admin() {
     setConfirmTarget(null);
     setIsProcessing(true);
     try {
-      const res = await fetch(`/api/contacts/${id}`, { method: 'DELETE' });
+      const res = await fetch(`${API_BASE}/contacts/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Delete failed');
       setNotif('Contact deleted');
       clearNotif();

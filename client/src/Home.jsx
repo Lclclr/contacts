@@ -1,3 +1,4 @@
+import { API_BASE } from './config.js';
 import { useState, useEffect } from 'react';
 
 export default function Home() {
@@ -10,7 +11,7 @@ export default function Home() {
 
   const fetchPrecincts = async () => {
     try {
-      const res = await fetch('/api/precincts');
+      const res = await fetch(`${API_BASE}/precincts`);
       const data = await res.json();
       setPrecincts(data);
       if (data.length && !selectedPrecinct) setSelectedPrecinct(data[0]);
@@ -21,7 +22,7 @@ export default function Home() {
 
   const fetchContacts = async (precinct) => {
     try {
-      const url = precinct ? `/api/contacts?precinct=${encodeURIComponent(precinct)}` : '/api/contacts';
+      const url = precinct ? `${API_BASE}/contacts?precinct=${encodeURIComponent(precinct)}` : `${API_BASE}/contacts`;
       const response = await fetch(url);
       const data = await response.json();
       setContacts(data);
@@ -43,7 +44,7 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetch('/api/contacts', {
+      await fetch(`${API_BASE}/contacts`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData)
       });
       setFormData({ first_name: '', last_name: '', email: '', cell_phone: '', voter_precinct: '', county: 'Bonneville', state: 'Idaho' });

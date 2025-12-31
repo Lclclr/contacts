@@ -9,7 +9,6 @@ function AppWrapper(){
     <BrowserRouter basename="/contacts">
       <div style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>
         <Link to="/" style={{ marginRight: '12px' }}>Home</Link>
-        <Link to="/admin" style={{ marginRight: '12px' }}>Admin</Link>
       </div>
       <Routes>
         <Route path="/" element={<Home/>} />
